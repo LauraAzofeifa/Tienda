@@ -9,14 +9,15 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import java.io.Serializable;
 import lombok.Data;
 
-@Data //crea get y set automaticamente
+@Data
 @Entity
 @Table(name = "producto")
-
 public class Producto implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -28,24 +29,23 @@ public class Producto implements Serializable {
     private String descripcion;
     private String detalle;
     private double precio;
-    private String rutaImagen;
     private int existencias;
+    private String rutaImagen;
     private boolean activo;
-    private Long idCategoria;
+
+    @ManyToOne
+    @JoinColumn(name = "id_categoria")
+    Categoria categoria;
 
     public Producto() {
     }
 
-    public Producto(String descripcion, String detalle, double precio, String rutaImagen, int existencias, boolean activo, Long idCategoria) {
+    public Producto(String descripcion, String detalle, double precio, int existencias, String imagen, boolean activo) {
         this.descripcion = descripcion;
         this.detalle = detalle;
         this.precio = precio;
-        this.rutaImagen = rutaImagen;
         this.existencias = existencias;
+        this.rutaImagen = imagen;
         this.activo = activo;
-        this.idCategoria = idCategoria;
     }
-
 }
-
-
